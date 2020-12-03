@@ -1,0 +1,23 @@
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:jaxws="http://cxf.apache.org/jaxws"  
+    xsi:schemaLocation=" http://www.springframework.org/schema/beans  
+    http://www.springframework.org/schema/beans/spring-beans.xsd  
+    http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+      
+    <import resource="classpath:cxf/cxf.xml" />
+    <import resource="classpath:cxf/cxf-extension-soap.xml" />
+    <import resource="classpath:cxf/cxf-servlet.xml" />
+
+    <bean id="HelloWorldServiceClientFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+        <property name="serviceClass" value="HelloWorldService" />
+        <property name="address" value="http://localhost:8080/mumu_demo_cxf_server_war/service/HelloWorldService" />
+    </bean>
+    <bean id="helloWorldService" class="HelloWorldService" factory-bean="HelloWorldServiceClientFactory" factory-method="create" />
+
+    <bean id="WeatherServiceClientFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+        <property name="serviceClass" value="WeatherService" />
+        <property name="address" value="http://localhost:8080/mumu_demo_cxf_server_war/service/WeatherService" />
+    </bean>
+    <bean id="weatherService" class="WeatherService" factory-bean="WeatherServiceClientFactory" factory-method="create" />
+</beans> 
